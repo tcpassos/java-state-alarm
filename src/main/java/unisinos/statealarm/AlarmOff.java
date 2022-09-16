@@ -11,7 +11,7 @@ public class AlarmOff extends AlarmState {
     @Override
     public AlarmState prepare(LocalDateTime time) {
         AlarmSet newState = new AlarmSet(observer, time);
-        newState.printSetTime();
+        newState.update();
         return newState;
     }
 

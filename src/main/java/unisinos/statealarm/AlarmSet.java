@@ -8,15 +8,16 @@ public class AlarmSet extends AlarmState {
     private static final int MAX_ATTEMPTS = 3;
 
     private LocalDateTime setTime;
+    private final int attempts;
 
     public AlarmSet(AlarmObserver observer, LocalDateTime setTime) {
         this(observer, setTime, MAX_ATTEMPTS);
-        this.setTime = setTime;
     }
 
     public AlarmSet(AlarmObserver observer, LocalDateTime setTime, int attempts) {
         super(observer);
-        ScheduledAlarmState.schedule(new AlarmRinging(observer, attempts), setTime);
+        this.setTime = setTime;
+        this.attempts = attempts;
     }
 
     @Override
@@ -31,6 +32,7 @@ public class AlarmSet extends AlarmState {
 
     @Override
     public void update() {
+        ScheduledAlarmState.schedule(new AlarmRinging(observer, attempts), setTime);
         printSetTime();
         super.update();
     }
