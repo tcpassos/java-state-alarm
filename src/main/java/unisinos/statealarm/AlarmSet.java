@@ -3,9 +3,7 @@ package unisinos.statealarm;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class AlarmSet extends AlarmState {
-
-    private static final int MAX_ATTEMPTS = 3;
+public class AlarmSet extends AlarmState implements AlarmConstants {
 
     private LocalDateTime setTime;
     private final int attempts;
