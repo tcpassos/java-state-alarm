@@ -11,7 +11,7 @@ public class AlarmSet extends AlarmState implements AlarmConstants {
     private final int attempts;
 
     public AlarmSet(AlarmObserver observer, LocalDateTime setTime) {
-        this(observer, setTime, MAX_ATTEMPTS);
+        this(observer, setTime, MAX_RETRIES);
     }
 
     public AlarmSet(AlarmObserver observer, LocalDateTime setTime, int attempts) {
@@ -33,7 +33,8 @@ public class AlarmSet extends AlarmState implements AlarmConstants {
     @Override
     public void setActive() {
         super.setActive();
-        observer.updateStateAfter(Duration.between(LocalDateTime.now(), setTime), () -> new AlarmRinging(observer, attempts));
+        Duration duration = Duration.between(LocalDateTime.now(), setTime);
+        observer.updateStateAfter(duration, () -> new AlarmRinging(observer, attempts));
     }
 
     @Override
