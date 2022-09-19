@@ -2,7 +2,7 @@ package unisinos.statealarm;
 
 import java.time.LocalDateTime;
 
-public class Alarm implements AlarmObserver {
+public class Alarm extends AlarmObserver {
 
     private AlarmState state;
 
@@ -11,16 +11,17 @@ public class Alarm implements AlarmObserver {
     }
 
     public void prepare(LocalDateTime time) {
-        state = state.prepare(time);
+        state.prepare(time).setActive();
     }
 
     public void disable() {
-        state = state.disable();
+        state.disable().setActive();
     }
 
     @Override
     public void updateState(AlarmState newState) {
         state = newState;
+        System.out.println(state.getUpdateMessage());
     }
 
 }

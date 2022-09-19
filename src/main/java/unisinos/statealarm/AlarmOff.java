@@ -10,9 +10,7 @@ public class AlarmOff extends AlarmState {
 
     @Override
     public AlarmState prepare(LocalDateTime time) {
-        AlarmSet newState = new AlarmSet(observer, time);
-        newState.update();
-        return newState;
+        return new AlarmSet(observer, time);
     }
 
     @Override
@@ -21,9 +19,8 @@ public class AlarmOff extends AlarmState {
     }
 
     @Override
-    public void update() {
-        System.out.println("Alarme desarmado");
-        super.update();
+    public String getUpdateMessage() {
+        return "Alarme desarmado";
     }
 
 }

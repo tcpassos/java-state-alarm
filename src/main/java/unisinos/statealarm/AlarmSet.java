@@ -1,5 +1,7 @@
 package unisinos.statealarm;
 
+import java.time.Duration;
+import unisinos.statealarm.constants.AlarmConstants;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -29,14 +31,14 @@ public class AlarmSet extends AlarmState implements AlarmConstants {
     }
 
     @Override
-    public void update() {
-        ScheduledAlarmState.schedule(new AlarmRinging(observer, attempts), setTime);
-        printSetTime();
-        super.update();
+    public void setActive() {
+        super.setActive();
+        observer.updateStateAfter(Duration.between(LocalDateTime.now(), setTime), () -> new AlarmRinging(observer, attempts));
     }
 
-    public void printSetTime() {
-        System.out.println("Alarme definido para " + setTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+    @Override
+    public String getUpdateMessage() {
+        return "Alarme definido para " + setTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }
 
 }

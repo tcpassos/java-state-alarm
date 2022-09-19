@@ -13,8 +13,10 @@ public abstract class AlarmState {
     public abstract AlarmState prepare(LocalDateTime time);
 
     public abstract AlarmState disable();
+    
+    public abstract String getUpdateMessage();
 
-    public void update() {
+    public void setActive() {
         observer.updateState(this);
     }
 
